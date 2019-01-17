@@ -53,8 +53,10 @@ appUpdate.checkUpdate();
 // version.json
 {
   "versionName":"1.0.0",
-  "apkUrl":"https://github.com/NewApp.apk",
-  "forceUpdate": false
+  "versionCode":1,
+  "android_link":"https://github.com/NewApp.apk",
+  "forceUpdate": false,
+  //...other custom properties such as description
 }
 ```
 ## Third Library
