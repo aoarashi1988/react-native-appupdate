@@ -8,7 +8,7 @@ import RNFS from 'react-native-fs';
 
 const RNAppUpdate = NativeModules.RNAppUpdate;
 
-const jobId = -1;
+let jobId = -1;
 
 class AppUpdate {
   constructor(options) {
@@ -39,7 +39,7 @@ class AppUpdate {
 
   getApkVersionSuccess(remote) {
     console.log("getApkVersionSuccess", remote);
-    if (RNAppUpdate.versionName !== remote.versionName) {
+    if (RNAppUpdate.versionCode > remote.versionName) {
       if (remote.forceUpdate) {
         if(this.options.forceUpdateApp) {
           this.options.forceUpdateApp();
@@ -67,10 +67,16 @@ class AppUpdate {
       this.options.downloadApkStart && this.options.downloadApkStart();
     };
     const progressDivider = 1;
-    const downloadDestPath = `${RNFS.DocumentDirectoryPath}/NewApp.apk`;
+    let name 
+    try {
+      name = remote.android_link.split('/').reverse()[0]
+    } catch (error) {
+      name = 'new_app.apk'
+    }
+    const downloadDestPath = `${RNFS.DocumentDirectoryPath}/${name}`;
 
     const ret = RNFS.downloadFile({
-      fromUrl: remote.apkUrl,
+      fromUrl: remote.android_link,
       toFile: downloadDestPath,
       begin,
       progress,
