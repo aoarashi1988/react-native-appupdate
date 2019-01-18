@@ -73,7 +73,7 @@ class AppUpdate {
     } catch (error) {
       name = 'new_app.apk'
     }
-    const downloadDestPath = `${RNFS.DocumentDirectoryPath}/${name}`;
+    const downloadDestPath = this.option.downloadDestPath || `${RNFS.DocumentDirectoryPath}/${name}`;
 
     const ret = RNFS.downloadFile({
       fromUrl: remote.android_link,
