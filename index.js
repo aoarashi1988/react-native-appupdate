@@ -128,11 +128,12 @@ class AppUpdate {
 
   getVersionError(err) {
     console.log("getVersionError", err);
+    this.options.onError && this.options.onError('get version error')
   }
 
   downloadApkError(err) {
     console.log("downloadApkError", err);
-    this.options.onError && this.options.onError();
+    this.options.onError && this.options.onError('download new apk error');
   }
 
   checkUpdate() {
